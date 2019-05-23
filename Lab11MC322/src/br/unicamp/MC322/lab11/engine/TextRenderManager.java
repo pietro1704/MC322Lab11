@@ -42,7 +42,7 @@ class TextRenderManager implements LabyrinthObjectVisitor {
     }
 
     @Override
-    public void visit(CheckPoint checkpoint) {
+    public void visit(LabyrinthObject.CheckPoint checkpoint) {
         if(checkpoint.isConquered()) {
             setSymbol(checkpoint ,'T');
         }else {
