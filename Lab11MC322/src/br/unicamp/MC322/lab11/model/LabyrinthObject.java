@@ -2,18 +2,20 @@ package br.unicamp.MC322.lab11.model;
 
 import br.unicamp.MC322.lab11.engine.*;
 
-public abstract class LabyrinthObject {
+abstract class LabyrinthObject {
     Coordinate coordinate;
 
-    public LabyrinthObject(int x, int y){
+    LabyrinthObject(int x, int y){
         Coordinate coordinate = new Coordinate(x, y);
     }
 
-    int getX(){
+    public int getX(){
+
         return coordinate.x;
     }
 
-    int getY(){
+    public int getY(){
+
         return coordinate.y;
     }
 
@@ -21,14 +23,15 @@ public abstract class LabyrinthObject {
         return coordinate;
     }
 
-    boolean isSameCoordinates(int x, int y){
+    public boolean isSameCoordinates(int x, int y){
         if (this.getX() == x && this.getY() == y){
             return true;
         }else{
             return false;
         }
     }
-    boolean isSameCoordinates(LabyrinthObject labyrinthObject) {
+
+    public boolean isSameCoordinates(LabyrinthObject labyrinthObject) {
         if (this.getX() == labyrinthObject.getX() && this.getY() == labyrinthObject.getY()){
             return true;
         }else{
@@ -38,13 +41,12 @@ public abstract class LabyrinthObject {
 
     public abstract void accept(LabyrinthObjectVisitorvisitor visitor);
 
-
-
-    public class Player extends LabyrinthObject {
+    class Player extends LabyrinthObject {
 
         Direction currentDirection;
 
-        public Player(int x, int y){
+        Player(int x, int y){
+
             super(x, y);
         }
 
@@ -61,38 +63,53 @@ public abstract class LabyrinthObject {
             return direction;
         }
 
-        void move(Direction direction, Wall walls){
-            //implementar
+        void move(Direction direction, Wall[] walls){
+            switch (direction){
+                case UP:
+                    if (walls[this.coordinate.y + 1]  == null){
+                        this.coordinate.y++;
+                    }
+                case DOWN:
+                    if (walls[this.coordinate.y - 1]  == null){
+                        this.coordinate.y--;
+                    }
+                case LEFT:
+                    if (walls[this.coordinate.x - 1]  == null){
+                        this.coordinate.x--;
+                    }
+                case RIGHT:
+                    if (walls[this.coordinate.x + 1]  == null){
+                        this.coordinate.x++;
+                    }
+            }
         }
 
-        @Override
         public void accept(LabyrinthObjectVisitor visitor) {
             visitor.visit(this);
         }
     }
 
-    public class Wall extends LabyrinthObject {
+    class Wall extends LabyrinthObject {
 
-        public Wall(int x, int y){
+        Wall(int x, int y){
             this.coordinate.x = x;
             this.coordinate.y = y;
         }
 
-        @Override
         public void accept(LabyrinthObjectVisitor visitor) {
             visitor.visit(this);
         }
     }
 
-    public class CheckPoint extends LabyrinthObject {
+    class CheckPoint extends LabyrinthObject {
         boolean conquered;
 
-        public CheckPoint(int x, int y){
+        CheckPoint(int x, int y){
             this.coordinate.x = x;
             this.coordinate.y = y;
         }
 
-        boolean isConquered(){
+        public boolean isConquered(){
             if (conquered){
                 return true;
             }else{
@@ -101,6 +118,7 @@ public abstract class LabyrinthObject {
         }
 
         void conquer(){
+
             this.conquered = true;
         }
 

@@ -3,11 +3,11 @@ package br.unicamp.MC322.lab11.model;
 public class LabyrinthMap {
     LabyrinthObject.Player player;
     LabyrinthObject.CheckPoint[] checkPoints;
-    LabyrinthObject.Wall wall;
+    LabyrinthObject.Wall[] wall;
     int width;
     int height;
 
-   public LabyrinthMap(int width, int height, LabyrinthObject.Player player, LabyrinthObject.CheckPoint[] checkPoints, LabyrinthObject.Wall wall){
+   protected LabyrinthMap(int width, int height, LabyrinthObject.Player player, LabyrinthObject.CheckPoint[] checkPoints, LabyrinthObject.Wall[] wall){
        this.checkPoints = checkPoints;
        this.player = player;
        this.wall = wall;
@@ -25,7 +25,7 @@ public class LabyrinthMap {
 
     public void updateMap(Direction direction){
        if (direction != null){
-           //move o jogador
+            player.move(direction, wall);
        }
        //verifica se o jogador conquistou checkpoint
     }
