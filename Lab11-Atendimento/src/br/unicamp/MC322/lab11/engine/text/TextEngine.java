@@ -32,6 +32,7 @@ public class TextEngine extends GameEngine {
 		}
 	}
 
+	//gameLoop para GameEngine em modo TEXTO
 	@Override
 	public void gameLoop() {
 		Scanner scanner = new Scanner(System.in);

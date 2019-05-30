@@ -47,6 +47,8 @@ public class GraphicalEngine extends GameEngine{
 		return window;
 	}
 	
+	
+	//gameLoop para ENGINE COM IMAGENS
 	@Override
 	public void gameLoop() {
 		try {
@@ -60,7 +62,12 @@ public class GraphicalEngine extends GameEngine{
 				d = keyListener.consumeDirection();
 				getLabyrinthMap().updateMap(d);
 				try {
+					
+					//para evitar de ficar bugado de dar atencao para o thread e para o progama
+					//ao mesmo tempo, separamos esses 30 ms para dar atencao ao programa
 					Thread.sleep(30);
+					
+					
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
